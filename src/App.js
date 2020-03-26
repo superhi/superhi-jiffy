@@ -1,10 +1,19 @@
 import React from 'react';
-import Header from './Header';
+
+const Header = () => (
+  <div className="header grid">
+    <h1 className="title">Jiffy</h1>
+  </div>
+)
 
 function App() {
   return (
-    <div className="App">
+    <div className="page">
       <Header />
+      <div className="search grid">
+        {/* Our stack of giff images*/}
+        <input className="input grid-item" placeholder="Type something" />
+      </div>
     </div>
   );
 }

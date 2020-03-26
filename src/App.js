@@ -8,12 +8,25 @@ const Header = () => (
 
 class App extends Component {
   handleChange = event => {
+    console.log(event.key);
+
    const {value} = event.target;
-   console.log(value);
    if(value.lenght > 2) {
     console.log('valid search term')
    }
+  };
+
+  // when we have two or more characters in our searchbox and we have also pressed enter, we then want to run a search
+  handleKeyPress = event => {
+    const {value} = event.target;
+    // when we have two or more characters in our searchbox and we have also pressed enter, we then want to run a search
+
+    if(value.length > 2 && event.key === 'Enter') {
+      alert(`search for ${value}`)
+    }
+    console.log(event.key)
   }
+
   render () {
     return (
       <div className="page">
@@ -23,7 +36,8 @@ class App extends Component {
           <input 
             className="input grid-item" 
             placeholder="Type something"
-            onChange={this.handleChange} />
+            onChange={this.handleChange}
+            onKeyPress={this.handleKeyPress} />
         </div>
       </div>
     );

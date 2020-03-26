@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
+import loader from './images/loader.svg';
 
 const Header = () => (
   <div className="header grid">
     <h1 className="title">Jiffy</h1>
   </div>
-)
+);
+
+const UserHint = ({loading, hintText}) => (
+  <div className="user-hint">
+  {/* here we check whether we have a loading state and render out either our spinner or hintText based on that, using a ternary operator */}
+    {loading ? <img className="block mx-auto" src={loader} alt="loader"/> : hintText}
+  </div>
+);
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      searchTerm: ''
+      searchTerm: '',
+      hintText: ''
     }
   }
 
@@ -24,12 +33,10 @@ class App extends Component {
       // we take our old props and spread them out here
       ...prevState,
       // and then we overwrite the ones we want after to update the value inside input tag (value={searchTerm})
-      searchTerm: value
+      searchTerm: value,
+      // we set the hintText only when we have more than two characters in our input otherwise we make it an empty string.
+      hintText: value.length > 2 ? `Hit enter to search ${value}` : ''
     }));
-
-    if(value.lenght > 2) {
-      console.log('valid search term')
-    }
   };
 
   handleKeyPress = event => {
@@ -56,6 +63,8 @@ class App extends Component {
             onKeyPress={this.handleKeyPress}
             value={searchTerm} />
         </div>
+        {/* Here we pass our userHing all of our state using a spread */}
+        <UserHint {...this.state}/>
       </div>
     );
   }

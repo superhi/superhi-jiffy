@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 const Header = () => (
   <div className="header grid">
@@ -6,16 +6,28 @@ const Header = () => (
   </div>
 )
 
-function App() {
-  return (
-    <div className="page">
-      <Header />
-      <div className="search grid">
-        {/* Our stack of giff images*/}
-        <input className="input grid-item" placeholder="Type something" />
+class App extends Component {
+  handleChange = event => {
+   const {value} = event.target;
+   console.log(value);
+   if(value.lenght > 2) {
+    console.log('valid search term')
+   }
+  }
+  render () {
+    return (
+      <div className="page">
+        <Header />
+        <div className="search grid">
+          {/* Our stack of giff images*/}
+          <input 
+            className="input grid-item" 
+            placeholder="Type something"
+            onChange={this.handleChange} />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;

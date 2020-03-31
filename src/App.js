@@ -23,6 +23,24 @@ class App extends Component {
     }
   }
 
+  //we want a function that searches tha giphy api using fetcha and puts the search term into the query url and then, we can do something with the results
+
+  // we can also write async method into our components that let us use the async/ await stule of function
+  searchGiphy = async searchTerm => {
+    // first we try our fetch
+    try {
+      // here we use await to wait keyword for our response to come back in our variable
+      const response = await fetch('https://api.giphy.com/v1/gifs/search?api_key=TYauWypYOOlR2bvXeblQTb7qFd1a4sxW&q=dog&limit=25&offset=0&rating=G&lang=en');
+
+      // here we convert our raw response to json data
+      const data = await response.json();
+
+      console.log(data)
+      // if our fetch fails, we catch it down here
+    } catch {
+    }
+  }
+
   handleChange = event => {
     const {value} = event.target;
     // by settings the searchTerm in our state and also using that on the input as the value, we have created what is called a *controlled input*. 
@@ -34,7 +52,7 @@ class App extends Component {
       ...prevState,
       // and then we overwrite the ones we want after to update the value inside input tag (value={searchTerm})
       searchTerm: value,
-      // we set the hintText only when we have more than two characters in our input otherwise we make it an empty string.
+      // we set the hintText only when we have more than two characters in our input otherwise we make it an empty string.x
       hintText: value.length > 2 ? `Hit enter to search ${value}` : ''
     }));
   };
@@ -43,10 +61,10 @@ class App extends Component {
     const {value} = event.target;
     // when we have two or more characters in our searchbox and we have also pressed enter, we then want to run a search
 
-    if(value.length > 2 && event.key === 'Enter') {
-      alert(`search for ${value}`)
+    if (value.length > 2 && event.key === 'Enter') {
+    //here we call our searchGofphy function using the search term 
+      this.searchGiphy(value)    
     }
-    console.log(event.key)
   }
 
   render () {

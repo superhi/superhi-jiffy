@@ -30,7 +30,7 @@ class App extends Component {
     // first we try our fetch
     try {
       // here we use await to wait keyword for our response to come back in our variable
-      const response = await fetch('https://api.giphy.com/v1/gifs/search?api_key=TYauWypYOOlR2bvXeblQTb7qFd1a4sxW&q=dog&limit=25&offset=0&rating=G&lang=en');
+      const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=TYauWypYOOlR2bvXeblQTb7qFd1a4sxW&q=${searchTerm}&limit=25&offset=0&rating=G&lang=en`);
 
       // here we convert our raw response to json data
       const data = await response.json();
@@ -45,7 +45,7 @@ class App extends Component {
     const {value} = event.target;
     // by settings the searchTerm in our state and also using that on the input as the value, we have created what is called a *controlled input*. 
 
-      // we need to update the input every time that it changes to update the state manually. Set the state in constructor to empty string and add it as value in the input. After, to grab each time the input changes, set the state with the previous one: pass to setState function our old props and overwrite it to send it to the value in input. 
+    // we need to update the input every time that it changes to update the state manually. Set the state in constructor to empty string and add it as value in the input. After, to grab each time the input changes, set the state with the previous one: pass to setState function our old props and overwrite it to send it to the value in input. 
 
     this.setState((prevState, props) => ({
       // we take our old props and spread them out here

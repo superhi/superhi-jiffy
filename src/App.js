@@ -26,6 +26,7 @@ class App extends Component {
       searchTerm: '',
       hintText: '',
       gif: null,
+      gifs: []
     }
   }
 
@@ -48,8 +49,9 @@ class App extends Component {
     
       this.setState((prevState, props) => ({
         ...prevState,
-        // get the first result and put it in the state data[0]. We overwrite the gif, and we're setting the gif to be our first image from that array of results. After, we put out random gif.
-        gif: randomGif 
+        // get the first result and put it in the state data[0]. We overwrite the gif, and we're setting the gif to be our first image from that array of results. After, we put out random gif, spread them out and then, add our new rando gif onto the end.
+        gif: randomGif,
+        gifs: [...prevState.gifs, randomGif]
       }))
       
       // if our fetch fails, we catch it down here
@@ -90,12 +92,9 @@ class App extends Component {
         <Header />
         <div className="search grid">
           {/* Our stack of giff images*/}
-          {/* It's only going to render our video when we have a gif in the state, we can test for it using && */}
-          {gif && (
-            <video className='grid-item video' autoPlay loop src=
-            {gif.images.original.mp4}
-            />
-          )}
+          {/* here we loop over our array of gif images from our state and we create multiple videos from it creating multiple components */}
+          {this.state.gifs.map(gif => <video className='grid-item video'        autoPlay loop src= {gif.images.original.mp4}
+          />)}
           <input 
             className="input grid-item" 
             placeholder="Type something"

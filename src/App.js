@@ -24,6 +24,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      loading: false,
       searchTerm: '',
       hintText: '',
       gif: null,
@@ -35,7 +36,10 @@ class App extends Component {
 
   // we can also write async method into our components that let us use the async/ await stule of function
   searchGiphy = async searchTerm => {
-    // first we try our fetch
+    this.setState({
+      // here we set our loading state to be true and this will show the spinner at the bottom.
+      loading: true
+    })
     try {
       // here we use await to wait keyword for our response to come back in our variable
       const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=TYauWypYOOlR2bvXeblQTb7qFd1a4sxW&q=${searchTerm}&limit=25&offset=0&rating=G&lang=en`);
@@ -52,7 +56,9 @@ class App extends Component {
         ...prevState,
         // get the first result and put it in the state data[0]. We overwrite the gif, and we're setting the gif to be our first image from that array of results. After, we put out random gif, spread them out and then, add our new rando gif onto the end.
         gif: randomGif,
-        gifs: [...prevState.gifs, randomGif]
+        gifs: [...prevState.gifs, randomGif],
+        // we turn off our loading spinner again
+        loading: false
       }))
       
       // if our fetch fails, we catch it down here

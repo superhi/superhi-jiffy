@@ -19,7 +19,8 @@ class App extends Component {
     super(props)
     this.state = {
       searchTerm: '',
-      hintText: ''
+      hintText: '',
+      gif: null,
     }
   }
 
@@ -33,9 +34,15 @@ class App extends Component {
       const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=TYauWypYOOlR2bvXeblQTb7qFd1a4sxW&q=${searchTerm}&limit=25&offset=0&rating=G&lang=en`);
 
       // here we convert our raw response to json data
-      const data = await response.json();
-
-      console.log(data)
+      // const {data} gets .data part of our response
+      const {data} = await response.json();
+    
+      this.setState((prevState, props) => ({
+        ...prevState,
+        // get the first result and put it in the state. We overwrite the gif, and we're setting the gif to be our first image from that array of results. 
+        gif: data[0] 
+      }))
+      
       // if our fetch fails, we catch it down here
     } catch {
     }
@@ -68,12 +75,18 @@ class App extends Component {
   }
 
   render () {
-    const { searchTerm } = this.state;
+    const { searchTerm, gif } = this.state;
     return (
       <div className="page">
         <Header />
         <div className="search grid">
           {/* Our stack of giff images*/}
+          {/* It's only going to render our video when we have a gif in the state, we can test for it using && */}
+          {gif && (
+            <video className='grid-item video' autoPlay loop src=
+            {gif.images.original.mp4}
+            />
+          )}
           <input 
             className="input grid-item" 
             placeholder="Type something"

@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import loader from './images/loader.svg';
 
+const randomChoice = array => {
+  const randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
+}
+
 const Header = () => (
   <div className="header grid">
     <h1 className="title">Jiffy</h1>
@@ -36,15 +41,19 @@ class App extends Component {
       // here we convert our raw response to json data
       // const {data} gets .data part of our response
       const {data} = await response.json();
+
+      // here we grab a random result from our images.
+      const randomGif = randomChoice(data);
+      console.log({randomGif})
     
       this.setState((prevState, props) => ({
         ...prevState,
-        // get the first result and put it in the state. We overwrite the gif, and we're setting the gif to be our first image from that array of results. 
-        gif: data[0] 
+        // get the first result and put it in the state data[0]. We overwrite the gif, and we're setting the gif to be our first image from that array of results. After, we put out random gif.
+        gif: randomGif 
       }))
       
       // if our fetch fails, we catch it down here
-    } catch {
+    } catch (error) {
     }
   }
 

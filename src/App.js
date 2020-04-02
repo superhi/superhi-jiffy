@@ -64,7 +64,8 @@ class App extends Component {
         gif: randomGif,
         gifs: [...prevState.gifs, randomGif],
         // we turn off our loading spinner again
-        loading: false
+        loading: false,
+        hintText: `Hit enter to see more ${searchTerm}`
       }))
       
       // if our fetch fails, we catch it down here

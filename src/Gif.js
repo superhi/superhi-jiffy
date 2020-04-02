@@ -20,7 +20,8 @@ class Gif extends Component {
         loop 
         src= {images.original.mp4 } 
         //when the video loads we set the loaded state to be true
-        onLoadedData={() => this.setState({loaded: true})}/>
+        onLoadedData={() => this.setState({loaded: true})} 
+      />
     )
   }
 }

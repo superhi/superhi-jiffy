@@ -66,7 +66,6 @@ class App extends Component {
 
       // here we grab a random result from our images.
       const randomGif = randomChoice(data);
-      console.log({randomGif})
     
       this.setState((prevState, props) => ({
         ...prevState,
@@ -137,7 +136,7 @@ class App extends Component {
           {/* here we loop over our array of gif images from our state and we create multiple videos from it creating multiple components */}
           {this.state.gifs.map((gif, index) => ( 
             // we spread out all of our properties into our Gif component
-            <Gif {...gif} key={index}/>
+            <Gif {...gif} key={index} />
           ))}
           <input 
             className="input grid-item" 

@@ -48,6 +48,12 @@ class App extends Component {
       // const {data} gets .data part of our response
       const {data} = await response.json();
 
+      // here we check if te array of results is empty if it is, we throw an error which will stop the code here and handle in the catch area
+      if (!data.length) {
+        // eslint-disable-next-line no-throw-literal
+        throw `Nothing found for ${searchTerm}`;
+      }
+
       // here we grab a random result from our images.
       const randomGif = randomChoice(data);
       console.log({randomGif})
@@ -63,6 +69,11 @@ class App extends Component {
       
       // if our fetch fails, we catch it down here
     } catch (error) {
+        this.setState((prevstate, props) => ({
+          ...prevstate,
+          hintText: error,
+          loading: false
+        }));
     }
   }
 

@@ -9,6 +9,7 @@ const randomChoice = array => {
   return array[randomIndex];
 }
 
+// we pick out our props inside the header component. We can pass down functions as props as well as things like numbers, strings, arrays or objects.
 const Header = ({clearSearch, hasResults}) => (
   <div className="header grid">
     {hasResults ? (
@@ -31,6 +32,7 @@ const UserHint = ({loading, hintText}) => (
 class App extends Component {
   constructor(props) {
     super(props)
+    this.textInput = React.createRef();
     this.state = {
       loading: false,
       searchTerm: '',
@@ -117,8 +119,10 @@ class App extends Component {
       ...prevstate,
       searchTerm: '',
       hintText: '',
-      gifs: []
-    })) 
+      gifs: [],
+    }));
+    // here we grab the input and then focus the cursos back into it
+    this.textInput.current.focus();
   }
 
   render () {
@@ -140,7 +144,8 @@ class App extends Component {
             placeholder="Type something"
             onChange={this.handleChange}
             onKeyPress={this.handleKeyPress}
-            value={searchTerm} />
+            value={searchTerm}
+            ref={this.textInput} />
         </div>
         {/* Here we pass our userHing all of our state using a spread */}
         <UserHint {...this.state}/>

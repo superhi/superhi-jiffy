@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import loader from './images/loader.svg';
+import clearButton from './images/close-icon.svg';
+
 import Gif from './Gif';
 
 const randomChoice = array => {
@@ -7,9 +9,15 @@ const randomChoice = array => {
   return array[randomIndex];
 }
 
-const Header = () => (
+const Header = ({clearSearch, hasResults}) => (
   <div className="header grid">
-    <h1 className="title">Jiffy</h1>
+    {hasResults ? (
+      <button onClick={clearSearch}>
+        <img src={clearButton}  alt='clear button'/> 
+      </button>
+    ) : (
+      <h1 className="title">Jiffy</h1>
+    )}
   </div>
 );
 
@@ -27,7 +35,7 @@ class App extends Component {
       loading: false,
       searchTerm: '',
       hintText: '',
-      gif: null,
+      // we take everyting related with gifs from here (delted gif: null)
       gifs: []
     }
   }
@@ -60,8 +68,7 @@ class App extends Component {
     
       this.setState((prevState, props) => ({
         ...prevState,
-        // get the first result and put it in the state data[0]. We overwrite the gif, and we're setting the gif to be our first image from that array of results. After, we put out random gif, spread them out and then, add our new rando gif onto the end.
-        gif: randomGif,
+        // We put out random gif, spread them out and then, add our new random gif onto the end.
         gifs: [...prevState.gifs, randomGif],
         // we turn off our loading spinner again
         loading: false,
@@ -104,11 +111,23 @@ class App extends Component {
     }
   }
 
+  // here we reset our state by clearing evey out and making it default again (like in our original state)
+  clearSearch = () => {
+    this.setState((prevstate, props) => ({
+      ...prevstate,
+      searchTerm: '',
+      hintText: '',
+      gifs: []
+    })) 
+  }
+
   render () {
-    const { searchTerm, gif } = this.state;
+    const { searchTerm, gifs } = this.state;
+    // here we set a variable to see if we have any gifs
+    const hasResults = gifs.length;
     return (
       <div className="page">
-        <Header />
+        <Header clearSearch={this.clearSearch} hasResults={hasResults}/>
         <div className="search grid">
           {/* Our stack of giff images*/}
           {/* here we loop over our array of gif images from our state and we create multiple videos from it creating multiple components */}

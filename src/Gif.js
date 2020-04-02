@@ -12,10 +12,9 @@ class Gif extends Component {
     const {loaded} = this.state;
     const {images} = this.props;
     return (
-  
       <video 
         // when we have the loaded state as true, we add a loaded clases
-        //the if statement ${loaded ? 'loaded' : ''} can be in this other way.
+        // the if statement ${loaded ? 'loaded' : ''} can be in this other way.
         className={`grid-item video ${loaded && 'loaded'}`} 
         autoPlay 
         loop 

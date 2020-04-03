@@ -140,9 +140,9 @@ class App extends Component {
         <div className="search grid">
           {/* Our stack of giff images*/}
           {/* here we loop over our array of gif images from our state and we create multiple videos from it creating multiple components */}
-          {this.state.gifs.map((gif, index) => (
+          {this.state.gifs.map(gif => (
             // we spread out all of our properties into our Gif component
-            <Gif {...gif} key={index} />
+            <Gif {...gif} key={gif.id} />
           ))}
           <input
             className="input grid-item"
